@@ -1,15 +1,26 @@
 import { ComponentProps } from 'react';
+import { tv, VariantProps } from 'tailwind-variants';
 
-type TextProps = ComponentProps<'div'> & {
-  value: string;
-  isBold?: boolean;
-};
+const textVariants = tv({
+  base: 'font-normal text-zinc-800',
+  variants: {
+    variant: {
+      normal: 'font-normal',
+      bold: 'font-bold',
+    },
+  },
+  defaultVariants: {
+    variant: 'normal',
+  },
+});
 
-function Text({ value, isBold }: TextProps) {
+type TextProps = ComponentProps<'div'> & VariantProps<typeof textVariants>;
+
+function Text({ variant, children, ...props }: TextProps) {
   return (
-    <>
-      <p>{isBold ? <b>{value}</b> : value}</p>
-    </>
+    <p className={textVariants({ variant })} {...props}>
+      {children}
+    </p>
   );
 }
 
