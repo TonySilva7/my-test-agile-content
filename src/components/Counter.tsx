@@ -27,11 +27,17 @@ export default function Counter(): JSX.Element {
       }}
     >
       <div>
-        <button aria-label="Decrement value" onClick={() => dispatch(decrement())}>
+        <button
+          aria-label="Decrement value"
+          onClick={() => dispatch(decrement())}
+        >
           -
         </button>
         <span>{count}</span>
-        <button aria-label="Increment value" onClick={() => dispatch(increment())}>
+        <button
+          aria-label="Increment value"
+          onClick={() => dispatch(increment())}
+        >
           +
         </button>
       </div>
