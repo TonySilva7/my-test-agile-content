@@ -6,7 +6,5 @@
     "source.fixAll.stylelint": true,
     "source.fixAll.prettier": true
   },
-  "editor.rulers": [
-    80
-  ],
+  "editor.rulers": [80]
 }
