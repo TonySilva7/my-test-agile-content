@@ -1,3 +1,9 @@
+import { ORG } from '@APP/components';
+
 export const Home = () => {
-  return <></>;
+  return (
+    <>
+      <ORG.MainPage />
+    </>
+  );
 };
