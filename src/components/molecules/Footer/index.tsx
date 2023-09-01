@@ -5,7 +5,7 @@ type FooterProps = ComponentProps<'div'>;
 function Footer({ ...props }: FooterProps) {
   return (
     <footer
-      className=" flex h-12 w-full items-center justify-between bg-neutral-200 px-4"
+      className="flex h-12 w-full items-center justify-between bg-neutral-200 px-4"
       {...props}
     >
       <div className="flex gap-3">
