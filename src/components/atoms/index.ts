@@ -1,3 +1,4 @@
+import { Input } from './Input';
 import { Text } from './Text';
 
-export { Text };
+export { Input, Text };
