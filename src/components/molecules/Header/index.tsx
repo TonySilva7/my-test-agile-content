@@ -15,9 +15,9 @@ function Header({ ...props }: HeaderProps) {
         <ATM.Text> Frontend test </ATM.Text>
       </span>
       <div className="flex items-center gap-3 text-zinc-800">
-        <button>
+        <ATM.Button variant="ghost">
           <Grip className="font-medium text-zinc-600" />
-        </button>
+        </ATM.Button>
         <img
           src="https://github.com/TonySilva7.png"
           alt="imagem perfil do usuário"

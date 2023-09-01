@@ -2,7 +2,7 @@ import { ComponentProps } from 'react';
 import { tv, VariantProps } from 'tailwind-variants';
 
 const textVariants = tv({
-  base: 'font-normal text-zinc-800',
+  base: 'text-sm text-zinc-700',
   variants: {
     variant: {
       normal: 'font-normal',
