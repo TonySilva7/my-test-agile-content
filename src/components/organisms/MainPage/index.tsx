@@ -1,5 +1,5 @@
 import { ATM, MOL } from '@APP/components';
-import { Grip, Search } from 'lucide-react';
+import { Grip, Search, X } from 'lucide-react';
 import { ComponentProps } from 'react';
 
 type MainPageProps = ComponentProps<'div'>;
@@ -34,6 +34,9 @@ function MainPage({ ...props }: MainPageProps) {
             <Search size={14} stroke="#555" />
           </ATM.Input.Prefix>
           <ATM.Input.Control placeholder="" />
+          <ATM.Input.Prefix>
+            <X size={14} stroke="#555" />
+          </ATM.Input.Prefix>
         </ATM.Input.Root>
 
         <ATM.Button>Buscar</ATM.Button>

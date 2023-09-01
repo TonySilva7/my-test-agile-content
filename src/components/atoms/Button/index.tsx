@@ -1,7 +1,7 @@
 import { ComponentProps } from 'react';
 import { tv, VariantProps } from 'tailwind-variants';
 
-const button = tv({
+const buttonVariant = tv({
   base: [
     'rounded-sm px-4 py-2 text-sm shadow-sm outline-none',
     'focus-visible:ring-2 focus-visible:ring-zinc-200 focus-visible:ring-offset-2',
@@ -19,10 +19,11 @@ const button = tv({
   },
 });
 
-type ButtonProps = ComponentProps<'button'> & VariantProps<typeof button>;
+type ButtonProps = ComponentProps<'button'> &
+  VariantProps<typeof buttonVariant>;
 
 function Button({ variant, ...props }: ButtonProps) {
-  return <button className={button({ variant })} {...props} />;
+  return <button className={buttonVariant({ variant })} {...props} />;
 }
 
 export { Button, type ButtonProps };
