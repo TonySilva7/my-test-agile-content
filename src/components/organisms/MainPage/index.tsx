@@ -33,7 +33,7 @@ function MainPage({ ...props }: MainPageProps) {
           <ATM.Input.Prefix>
             <Search size={14} stroke="#555" />
           </ATM.Input.Prefix>
-          <ATM.Input.Control placeholder="" type="search" />
+          <ATM.Input.Control placeholder="" />
         </ATM.Input.Root>
 
         <ATM.Button>Buscar</ATM.Button>
