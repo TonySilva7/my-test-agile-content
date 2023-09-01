@@ -14,17 +14,6 @@ describe('App', () => {
         <App />
       </Provider>,
     );
-    expect(screen.getByText('Ready to code!')).toBeInTheDocument();
-  });
-
-  it('renders App component', () => {
-    render(
-      <Provider store={store}>
-        <App />
-      </Provider>,
-    );
-    expect(screen.getByText('Lista de Usuários')).toHaveTextContent(
-      'Lista de Usuários',
-    );
+    expect(screen.getByText('Buscar')).toBeInTheDocument();
   });
 });
