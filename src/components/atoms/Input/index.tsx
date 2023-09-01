@@ -14,7 +14,7 @@ const inputVariant = tv({
   variants: {
     variant: {
       normal: 'h-auto',
-      slim: 'h-8 w-1/4',
+      slim: 'h-8 lg:w-1/4',
     },
   },
   defaultVariants: {

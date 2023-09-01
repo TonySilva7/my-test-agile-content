@@ -7,7 +7,8 @@ type ResultSearchProps = ComponentProps<'div'>;
 function ResultSearch({ ...props }: ResultSearchProps) {
   return (
     <div
-      className="flex h-screen flex-col items-center justify-between"
+      className="flex flex-col items-center"
+      style={{ border: 'solid 1px green' }}
       {...props}
     >
       <MOL.Header>
@@ -35,12 +36,42 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           />
         </div>
       </MOL.Header>
-      <main className="flex w-full flex-col items-center gap-y-6 px-3 lg:w-1/3">
-        <ul>
-          <li>LISTA DE RESULTADOS</li>
-
-          <ATM.SkeletonLoading />
+      <main
+        className="mt-6 flex w-full flex-col items-center gap-y-6 px-6 lg:grid lg:grid-cols-resultSearch lg:items-start lg:gap-x-6"
+        style={{ border: 'solid 1px red' }}
+      >
+        <ul className="w-full space-y-4">
+          <li>
+            <ATM.SkeletonLoading />
+          </li>
+          <li>
+            <ATM.SkeletonLoading />
+          </li>
+          <li>
+            <ATM.SkeletonLoading />
+          </li>
+          <li>
+            <ATM.SkeletonLoading />
+          </li>
+          <li>
+            <ATM.SkeletonLoading />
+          </li>
+          <li>
+            <ATM.SkeletonLoading />
+          </li>
+          <li>
+            <ATM.SkeletonLoading />
+          </li>
         </ul>
+
+        <div className="fixed top-0 z-50 flex h-screen w-screen items-center bg-slate-700/50 lg:static lg:items-start lg:bg-transparent">
+          <img
+            src="https://images.unsplash.com/photo-1555169062-013468b47731?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
+            alt="animal"
+            className="h-60 w-full object-cover"
+          />
+        </div>
+        {/* )} */}
       </main>
     </div>
   );
