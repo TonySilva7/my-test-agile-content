@@ -6,12 +6,13 @@ function Prefix({ ...rest }: PrefixProps) {
   return <div {...rest} />;
 }
 
-type ControlProps = ComponentProps<'input'>;
+type ControlProps = ComponentProps<'textarea'>;
 
 function Control({ ...rest }: ControlProps) {
   return (
-    <input
-      className="flex-1 border-0 bg-transparent p-0 text-zinc-900 outline-none placeholder:text-zinc-600"
+    <textarea
+      rows={1}
+      className="flex-1 resize-none border-0 bg-transparent p-0 text-zinc-800 outline-none placeholder:text-zinc-600"
       {...rest}
     />
   );
