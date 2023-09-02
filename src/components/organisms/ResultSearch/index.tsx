@@ -1,5 +1,7 @@
+import { useAppSelector } from '@APP/app/hooks';
 import { ATM, MOL } from '@APP/components';
 import { Button } from '@APP/components/atoms';
+import { FEAT } from '@APP/features';
 import { VALID } from '@APP/hooks';
 import { ROUTES } from '@APP/routes/routes';
 import { faker } from '@faker-js/faker';
@@ -15,6 +17,7 @@ type ISearch = {
 };
 
 function ResultSearch({ ...props }: ResultSearchProps) {
+  const { items } = useAppSelector(FEAT.ANIMAL.selectAnimals);
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -40,25 +43,6 @@ function ResultSearch({ ...props }: ResultSearchProps) {
 
   const defaultTextNoResult =
     'insect, finish, horse, crocodilia, bear, cow, lion, rabbit, cat, snake, dog, bird.';
-
-  const getImage = () => faker.image.urlLoremFlickr({ category: 'animals' });
-  const getType = () => faker.animal.type();
-  const getUrl = () => faker.internet.url();
-  const getText = () => faker.lorem.sentences();
-  const getTitle = (type: keyof typeof faker.animal) => faker.animal[type]();
-  const data = [...new Array(100)].map((item, index) => {
-    const type = getType();
-    return {
-      type,
-      id: index + 1,
-      url: getUrl(),
-      title: getTitle(type as keyof typeof faker.animal),
-      description: getText(),
-      image: getImage(),
-    };
-  });
-
-  console.log(data);
 
   return (
     <div className="flex flex-col items-center" {...props}>
@@ -102,14 +86,14 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           <MOL.NoResult
             term={[errors.valueSearch?.message ?? '', defaultTextNoResult]}
           />
-        ) : data.length === 0 ? (
+        ) : items.length === 0 ? (
           <span>
             <MOL.NoResult term={['No results found for ', `'${term}'` ?? '']} />
             <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
           </span>
         ) : (
           <ul className="w-full space-y-4">
-            {data.map((animal) => (
+            {items.map((animal) => (
               <MOL.ListItem
                 key={animal.id}
                 url={animal.url}

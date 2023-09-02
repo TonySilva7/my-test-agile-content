@@ -1,4 +1,6 @@
+import { useAppDispatch } from '@APP/app/hooks';
 import { ATM, MOL } from '@APP/components';
+import { FEAT } from '@APP/features';
 import { VALID } from '@APP/hooks';
 import { ROUTES } from '@APP/routes/routes';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -29,13 +31,18 @@ function MainPage({ ...props }: MainPageProps) {
     navigate(`${ROUTES.ResultPage}/search?q=${data.valueSearch}`);
   };
 
-  console.log(errors.valueSearch?.message);
+  const dispatch = useAppDispatch();
+
+  const getAnimals = () => {
+    dispatch(FEAT.ANIMAL.handleGetAnimals());
+  };
 
   return (
     <div
       className="flex h-screen flex-col items-center justify-between"
       {...props}
     >
+      <button onClick={getAnimals}>TESTAR</button>
       <MOL.Header>
         <span className="flex gap-3">
           <ATM.Text variant="bold"> Agile Content </ATM.Text>

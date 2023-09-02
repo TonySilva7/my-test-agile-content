@@ -7,4 +7,9 @@ type IAnimals = {
   image: string;
 };
 
-export type { IAnimals };
+type IAnimalsState = {
+  items: IAnimals[];
+  status: 'idle' | 'pending' | 'success' | 'error';
+};
+
+export type { IAnimals, IAnimalsState };

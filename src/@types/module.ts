@@ -1,1 +1,1 @@
-export type { IAnimals } from './fakerAnimals';
+export type { IAnimals, IAnimalsState } from './fakerAnimals';

@@ -1,3 +1,4 @@
+import { animalsModel } from './animals';
 import { fakerAnimals } from './fakerAnimals';
 
-export { fakerAnimals };
+export { animalsModel, fakerAnimals };

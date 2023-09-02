@@ -1,10 +1,10 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit';
 
-import counterReducer from '../features/counter/counterSlice';
+import animalsReducer from '../features/animals';
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    animals: animalsReducer,
   },
 });
 
