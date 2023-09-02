@@ -41,6 +41,7 @@
         "usePrettierrc": true
       }
     ],
+    "no-console": "error",
     "react/react-in-jsx-scope": "off",
     "jsx-a11y/accessible-emoji": "off",
     "react/prop-types": "off",

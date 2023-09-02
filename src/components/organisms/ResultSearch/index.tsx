@@ -1,4 +1,4 @@
-import { useAppSelector } from '@APP/app/hooks';
+import { useAppDispatch, useAppSelector } from '@APP/app/hooks';
 import { ATM, MOL } from '@APP/components';
 import { Button } from '@APP/components/atoms';
 import { FEAT } from '@APP/features';
@@ -17,7 +17,10 @@ type ISearch = {
 };
 
 function ResultSearch({ ...props }: ResultSearchProps) {
-  const { items } = useAppSelector(FEAT.ANIMAL.selectAnimals);
+  const dispatch = useAppDispatch();
+  const { animals, status, requestError, fakeItems } = useAppSelector(
+    FEAT.ANIMAL.selectAnimals,
+  );
   const navigate = useNavigate();
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
@@ -38,7 +41,13 @@ function ResultSearch({ ...props }: ResultSearchProps) {
   });
 
   const submit = (data: ISearch) => {
-    console.log(data);
+    navigate(`${ROUTES.ResultPage}/search?q=${data.valueSearch}`);
+    dispatch(FEAT.ANIMAL.handleGetAnimalsByName(data.valueSearch));
+  };
+
+  const handleClearSearch = () => {
+    setValue('valueSearch', '');
+    dispatch(FEAT.ANIMAL.handleResetAnimals());
   };
 
   const defaultTextNoResult =
@@ -58,10 +67,7 @@ function ResultSearch({ ...props }: ResultSearchProps) {
               </ATM.Input.Prefix>
               <ATM.Input.Control placeholder="" {...register('valueSearch')} />
               {watch('valueSearch') && (
-                <ATM.Input.Sufixe
-                  type="button"
-                  onClick={() => setValue('valueSearch', '')}
-                >
+                <ATM.Input.Sufixe type="button" onClick={handleClearSearch}>
                   <X size={14} stroke="#555" />
                 </ATM.Input.Sufixe>
               )}
@@ -82,18 +88,24 @@ function ResultSearch({ ...props }: ResultSearchProps) {
       </MOL.Header>
 
       <main className="mt-6 flex min-h-[calc(100vh-8rem)] w-full flex-col items-center gap-y-6 px-6 lg:grid lg:grid-cols-resultSearch lg:items-start lg:gap-x-6">
-        {errors.valueSearch?.message ? (
+        {status === 'pending' ? (
+          <div className="flex w-full flex-col gap-y-5">
+            {Array.from({ length: 5 }).map((_, index) => (
+              <ATM.SkeletonLoading key={index} />
+            ))}
+          </div>
+        ) : animals.length === 0 ? (
+          <span>
+            <MOL.NoResult term={[`${requestError}: `, `'${term}'` ?? '']} />
+            <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
+          </span>
+        ) : errors.valueSearch?.message ? (
           <MOL.NoResult
             term={[errors.valueSearch?.message ?? '', defaultTextNoResult]}
           />
-        ) : items.length === 0 ? (
-          <span>
-            <MOL.NoResult term={['No results found for ', `'${term}'` ?? '']} />
-            <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
-          </span>
         ) : (
           <ul className="w-full space-y-4">
-            {items.map((animal) => (
+            {animals.map((animal) => (
               <MOL.ListItem
                 key={animal.id}
                 url={animal.url}
@@ -101,9 +113,6 @@ function ResultSearch({ ...props }: ResultSearchProps) {
                 text={animal.description}
               />
             ))}
-            <li>
-              <ATM.SkeletonLoading />
-            </li>
           </ul>
         )}
       </main>

@@ -8,7 +8,9 @@ type IAnimals = {
 };
 
 type IAnimalsState = {
-  items: IAnimals[];
+  fakeItems: IAnimals[];
+  animals: IAnimals[];
+  requestError?: string;
   status: 'idle' | 'pending' | 'success' | 'error';
 };
 

@@ -5,7 +5,7 @@ import { VALID } from '@APP/hooks';
 import { ROUTES } from '@APP/routes/routes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
-import { ComponentProps } from 'react';
+import React, { ComponentProps, useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,8 +14,9 @@ type ISearch = {
   valueSearch: string;
 };
 
-function MainPage({ ...props }: MainPageProps) {
+function Page({ ...props }: MainPageProps) {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const validationSchema = VALID.useSearchSchema();
   const {
     register,
@@ -28,21 +29,23 @@ function MainPage({ ...props }: MainPageProps) {
   });
 
   const submit = (data: ISearch) => {
+    dispatch(FEAT.ANIMAL.handleGetAnimalsByName(data.valueSearch));
     navigate(`${ROUTES.ResultPage}/search?q=${data.valueSearch}`);
   };
 
-  const dispatch = useAppDispatch();
-
-  const getAnimals = () => {
+  const getAnimals = useCallback(() => {
     dispatch(FEAT.ANIMAL.handleGetAnimals());
-  };
+  }, [dispatch]);
+
+  useEffect(() => {
+    getAnimals();
+  }, [getAnimals]);
 
   return (
     <div
       className="flex h-screen flex-col items-center justify-between"
       {...props}
     >
-      <button onClick={getAnimals}>TESTAR</button>
       <MOL.Header>
         <span className="flex gap-3">
           <ATM.Text variant="bold"> Agile Content </ATM.Text>
@@ -88,5 +91,7 @@ function MainPage({ ...props }: MainPageProps) {
     </div>
   );
 }
+
+const MainPage = React.memo(Page);
 
 export { MainPage, type MainPageProps };
