@@ -38,6 +38,8 @@ function ResultSearch({ ...props }: ResultSearchProps) {
   };
 
   const noResultMock = [];
+  const defaultTextNoResult =
+    'insect, finish, horse, crocodilia, bear, cow, lion, rabbit, cat, snake, dog, bird.';
 
   return (
     <div className="flex flex-col items-center" {...props}>
@@ -79,11 +81,13 @@ function ResultSearch({ ...props }: ResultSearchProps) {
       <main className="mt-6 flex min-h-[calc(100vh-8rem)] w-full flex-col items-center gap-y-6 px-6 lg:grid lg:grid-cols-resultSearch lg:items-start lg:gap-x-6">
         {errors.valueSearch?.message ? (
           <MOL.NoResult
-            term={[errors.valueSearch?.message ?? '', term ?? '']}
-            isFullMessage={false}
+            term={[errors.valueSearch?.message ?? '', defaultTextNoResult]}
           />
         ) : noResultMock.length === 0 ? (
-          <MOL.NoResult term={['No results found for ', term ?? '']} />
+          <span>
+            <MOL.NoResult term={['No results found for ', `'${term}'` ?? '']} />
+            <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
+          </span>
         ) : (
           <ul className="w-full space-y-4">
             <MOL.ListItem
@@ -129,27 +133,6 @@ function ResultSearch({ ...props }: ResultSearchProps) {
             </li>
           </ul>
         )}
-
-        <div className="fixed top-0 z-50 flex h-screen w-screen items-center justify-center bg-slate-700/50 lg:static lg:h-auto lg:w-auto lg:items-start lg:bg-transparent">
-          <div className="flex w-80 flex-col rounded border bg-neutral-50 p-3">
-            <img
-              src="https://images.unsplash.com/photo-1555169062-013468b47731?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-              alt="animal"
-              className="h-40 w-full object-cover"
-            />
-            <a
-              className="pt-2 text-xs text-neutral-700"
-              href="http://my-site.com"
-            >
-              http://my-site.com
-            </a>
-            <h2 className="py-1 font-semibold text-zinc-800">Bonga shad</h2>
-            <p className="text-sm text-zinc-800">
-              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Labore
-              unde repellat voluptatibus!
-            </p>
-          </div>
-        </div>
       </main>
       <MOL.Footer />
     </div>
