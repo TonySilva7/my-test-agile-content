@@ -13,7 +13,7 @@ const animals = {
           animal.type.toLowerCase().includes(searchTerm.toLowerCase()),
         );
 
-        if (filteredAnimals.length === 0) rejected('No results found');
+        if (filteredAnimals.length === 0) rejected('No results found for');
         resolve(filteredAnimals);
       }, Math.random() * 3000);
     });

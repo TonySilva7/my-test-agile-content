@@ -7,9 +7,11 @@ import { ROUTES } from '@APP/routes/routes';
 import { faker } from '@faker-js/faker';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
-import { ComponentProps } from 'react';
+import { ComponentProps, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useLocation, useNavigate } from 'react-router-dom';
+
+import { IDataCard } from './types';
 
 type ResultSearchProps = ComponentProps<'div'>;
 type ISearch = {
@@ -23,6 +25,7 @@ function ResultSearch({ ...props }: ResultSearchProps) {
   );
   const navigate = useNavigate();
   const location = useLocation();
+
   const queryParams = new URLSearchParams(location.search);
   const term = queryParams.get('q');
 
@@ -42,12 +45,28 @@ function ResultSearch({ ...props }: ResultSearchProps) {
 
   const submit = (data: ISearch) => {
     navigate(`${ROUTES.ResultPage}/search?q=${data.valueSearch}`);
+    setDataCard(null);
     dispatch(FEAT.ANIMAL.handleGetAnimalsByName(data.valueSearch));
+  };
+
+  const [dataCard, setDataCard] = useState<IDataCard | null>(null);
+
+  const handleClickItem = (id: number) => {
+    const animal = animals.find((animal) => animal.id === id);
+    if (animal) {
+      setDataCard({
+        title: animal.title,
+        description: animal.description,
+        imageUrl: animal.image,
+        url: animal.url,
+      });
+    }
   };
 
   const handleClearSearch = () => {
     setValue('valueSearch', '');
     dispatch(FEAT.ANIMAL.handleResetAnimals());
+    setDataCard(null);
   };
 
   const defaultTextNoResult =
@@ -75,7 +94,7 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           </form>
         </span>
 
-        <div className="flex items-center gap-3 text-zinc-800">
+        <div className="hidden items-center gap-3 text-zinc-800 lg:flex">
           <ATM.Button variant="ghost">
             <Grip className="font-medium text-zinc-600" />
           </ATM.Button>
@@ -94,9 +113,9 @@ function ResultSearch({ ...props }: ResultSearchProps) {
               <ATM.SkeletonLoading key={index} />
             ))}
           </div>
-        ) : animals.length === 0 ? (
+        ) : requestError ? (
           <span>
-            <MOL.NoResult term={[`${requestError}: `, `'${term}'` ?? '']} />
+            <MOL.NoResult term={[`${requestError} `, `'${term}'` ?? '']} />
             <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
           </span>
         ) : errors.valueSearch?.message ? (
@@ -108,6 +127,7 @@ function ResultSearch({ ...props }: ResultSearchProps) {
             {animals.map((animal) => (
               <MOL.ListItem
                 key={animal.id}
+                onClick={() => handleClickItem(animal.id)}
                 url={animal.url}
                 title={animal.title}
                 text={animal.description}
@@ -115,7 +135,18 @@ function ResultSearch({ ...props }: ResultSearchProps) {
             ))}
           </ul>
         )}
+
+        {dataCard && (
+          <MOL.AnimalCard
+            title={dataCard.title}
+            description={dataCard.description}
+            imageUrl={dataCard.imageUrl}
+            url={dataCard.url}
+            onClick={() => setDataCard(null)}
+          />
+        )}
       </main>
+
       <MOL.Footer />
     </div>
   );

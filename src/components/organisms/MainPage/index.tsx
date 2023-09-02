@@ -79,12 +79,17 @@ function Page({ ...props }: MainPageProps) {
                 type="button"
                 onClick={() => setValue('valueSearch', '')}
               >
-                <X size={14} stroke="#555" />
+                <X size={16} stroke="#555" />
               </ATM.Input.Sufixe>
             )}
           </ATM.Input.Root>
 
-          <ATM.Button type="submit">Buscar</ATM.Button>
+          <ATM.Button
+            type="submit"
+            disabled={watch('valueSearch')?.length === 0}
+          >
+            Buscar
+          </ATM.Button>
         </form>
       </main>
       <MOL.Footer />

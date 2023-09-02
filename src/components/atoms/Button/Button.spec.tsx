@@ -6,15 +6,17 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { describe, expect, test } from 'vitest';
 
+import { Button } from '.';
+
 describe('App', () => {
   const store = setupStore();
+
   it('renders App correctly', () => {
     render(
       <Provider store={store}>
-        <App />
+        <Button />
       </Provider>,
     );
     expect(screen.getByText('Buscar')).toBeInTheDocument();
-    expect(screen.getByText('Agile Content')).toBeInTheDocument();
   });
 });

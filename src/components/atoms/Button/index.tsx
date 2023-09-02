@@ -6,6 +6,7 @@ const buttonVariant = tv({
     'rounded-sm px-4 py-2 text-sm shadow-sm outline-none',
     'focus-visible:ring-2 focus-visible:ring-zinc-200 focus-visible:ring-offset-2',
     'transition-colors duration-200 active:opacity-80',
+    'disabled:cursor-not-allowed disabled:opacity-50',
   ],
   variants: {
     variant: {
