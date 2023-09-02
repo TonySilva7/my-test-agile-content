@@ -1,7 +1,7 @@
-import { request } from '.';
+import { http } from './config';
 
 export async function getProducts() {
-  const response = await request.get('/users');
+  const response = await http.get('/users');
 
   console.log('Fez a requisição!');
 

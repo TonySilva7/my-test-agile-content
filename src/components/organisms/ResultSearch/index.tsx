@@ -2,6 +2,7 @@ import { ATM, MOL } from '@APP/components';
 import { Button } from '@APP/components/atoms';
 import { VALID } from '@APP/hooks';
 import { ROUTES } from '@APP/routes/routes';
+import { faker } from '@faker-js/faker';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
 import { ComponentProps } from 'react';
@@ -37,9 +38,27 @@ function ResultSearch({ ...props }: ResultSearchProps) {
     console.log(data);
   };
 
-  const noResultMock = [];
   const defaultTextNoResult =
     'insect, finish, horse, crocodilia, bear, cow, lion, rabbit, cat, snake, dog, bird.';
+
+  const getImage = () => faker.image.urlLoremFlickr({ category: 'animals' });
+  const getType = () => faker.animal.type();
+  const getUrl = () => faker.internet.url();
+  const getText = () => faker.lorem.sentences();
+  const getTitle = (type: keyof typeof faker.animal) => faker.animal[type]();
+  const data = [...new Array(100)].map((item, index) => {
+    const type = getType();
+    return {
+      type,
+      id: index + 1,
+      url: getUrl(),
+      title: getTitle(type as keyof typeof faker.animal),
+      description: getText(),
+      image: getImage(),
+    };
+  });
+
+  console.log(data);
 
   return (
     <div className="flex flex-col items-center" {...props}>
@@ -83,51 +102,21 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           <MOL.NoResult
             term={[errors.valueSearch?.message ?? '', defaultTextNoResult]}
           />
-        ) : noResultMock.length === 0 ? (
+        ) : data.length === 0 ? (
           <span>
             <MOL.NoResult term={['No results found for ', `'${term}'` ?? '']} />
             <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
           </span>
         ) : (
           <ul className="w-full space-y-4">
-            <MOL.ListItem
-              title="Bonga shad"
-              url="http://my-site.com"
-              text="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error sunt accusamus ex suscipit enim! Atque beatae commodi accusamus nostrum sit fugit ex, sunt, itaque neque culpa sapiente maiores mollitia ipsam."
-            />
-            <MOL.ListItem
-              title="Bonga shad"
-              url="http://my-site.com"
-              text="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error sunt accusamus ex suscipit enim! Atque beatae commodi accusamus nostrum sit fugit ex, sunt, itaque neque culpa sapiente maiores mollitia ipsam."
-            />
-            <MOL.ListItem
-              title="Bonga shad"
-              url="http://my-site.com"
-              text="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error sunt accusamus ex suscipit enim! Atque beatae commodi accusamus nostrum sit fugit ex, sunt, itaque neque culpa sapiente maiores mollitia ipsam."
-            />
-            <MOL.ListItem
-              title="Bonga shad"
-              url="http://my-site.com"
-              text="Lorem ipsum, dolor sit amet consectetur adipisicing elit. Error sunt accusamus ex suscipit enim! Atque beatae commodi accusamus nostrum sit fugit ex, sunt, itaque neque culpa sapiente maiores mollitia ipsam."
-            />
-            <li>
-              <ATM.SkeletonLoading />
-            </li>
-            <li>
-              <ATM.SkeletonLoading />
-            </li>
-            <li>
-              <ATM.SkeletonLoading />
-            </li>
-            <li>
-              <ATM.SkeletonLoading />
-            </li>
-            <li>
-              <ATM.SkeletonLoading />
-            </li>
-            <li>
-              <ATM.SkeletonLoading />
-            </li>
+            {data.map((animal) => (
+              <MOL.ListItem
+                key={animal.id}
+                url={animal.url}
+                title={animal.title}
+                text={animal.description}
+              />
+            ))}
             <li>
               <ATM.SkeletonLoading />
             </li>
