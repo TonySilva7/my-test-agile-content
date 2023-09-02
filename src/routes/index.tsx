@@ -8,10 +8,14 @@ export const AppRoutes = () => {
   return (
     <Routes>
       <Route path={ROUTES.Home} element={<PAGE.Home />} />
-      <Route path={ROUTES.ResultPage} element={<PAGE.ResultPage />} />
+      <Route
+        path={`${ROUTES.ResultPage}/search`}
+        element={<PAGE.ResultPage />}
+      />
       <Route path="/secret" element={<PrivateRoute />}>
         <Route path="" element={<h1>Private</h1>} />
       </Route>
+      <Route path="*" element={<h1>404</h1>} />
     </Routes>
   );
 };

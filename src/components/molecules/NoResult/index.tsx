@@ -2,24 +2,28 @@ import { ATM } from '@APP/components';
 import { ComponentProps } from 'react';
 
 type NoResultProps = ComponentProps<'div'> & {
-  term: string;
-  fullMessage?: boolean;
+  term: [string, string];
+  isFullMessage?: boolean;
 };
 
-function NoResult({ term, fullMessage = true, ...props }: NoResultProps) {
+function NoResult({
+  term,
+  isFullMessage: fullMessage = true,
+  ...props
+}: NoResultProps) {
   const handleFormatTerm = () => {
-    return `'${term}'`;
+    return `'${term[1]}'`;
   };
 
   return (
     <div {...props}>
       {fullMessage && (
         <ATM.Text>
-          No result found for <strong>{handleFormatTerm()}</strong>.
+          {term[0]} <strong>{handleFormatTerm()}</strong>.
         </ATM.Text>
       )}
       <span className="flex gap-1">
-        <ATM.Text>Try looking for:</ATM.Text>
+        <ATM.Text>{term[0]}</ATM.Text>
         <ATM.Text variant="bold">
           insect, finish, horse, crocodilia, bear, cow, lion, rabbit, cat,
           snake, dog, bird.

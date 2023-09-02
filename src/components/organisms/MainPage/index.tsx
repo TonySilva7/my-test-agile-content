@@ -1,10 +1,36 @@
 import { ATM, MOL } from '@APP/components';
+import { VALID } from '@APP/hooks';
+import { ROUTES } from '@APP/routes/routes';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
 import { ComponentProps } from 'react';
+import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 type MainPageProps = ComponentProps<'div'>;
+type ISearch = {
+  valueSearch: string;
+};
 
 function MainPage({ ...props }: MainPageProps) {
+  const navigate = useNavigate();
+  const validationSchema = VALID.useSearchSchema();
+  const {
+    register,
+    handleSubmit,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<ISearch>({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const submit = (data: ISearch) => {
+    navigate(`${ROUTES.ResultPage}/search?q=${data.valueSearch}`);
+  };
+
+  console.log(errors.valueSearch?.message);
+
   return (
     <div
       className="flex h-screen flex-col items-center justify-between"
@@ -26,20 +52,30 @@ function MainPage({ ...props }: MainPageProps) {
           />
         </div>
       </MOL.Header>
-      <main className="flex w-full flex-col items-center gap-y-6 px-3 lg:w-1/3">
+      <main className="flex w-full flex-col items-center gap-y-6 px-3 lg:w-2/4">
         <ATM.LogoGoogle width={250} />
 
-        <ATM.Input.Root>
-          <ATM.Input.Prefix>
-            <Search size={14} stroke="#555" />
-          </ATM.Input.Prefix>
-          <ATM.Input.Control placeholder="" />
-          <ATM.Input.Prefix>
-            <X size={14} stroke="#555" />
-          </ATM.Input.Prefix>
-        </ATM.Input.Root>
+        <form
+          onSubmit={handleSubmit(submit)}
+          className="flex w-full flex-col items-center gap-2"
+        >
+          <ATM.Input.Root>
+            <ATM.Input.Prefix type="submit">
+              <Search size={14} stroke="#555" />
+            </ATM.Input.Prefix>
+            <ATM.Input.Control placeholder="" {...register('valueSearch')} />
+            {watch('valueSearch') && (
+              <ATM.Input.Sufixe
+                type="button"
+                onClick={() => setValue('valueSearch', '')}
+              >
+                <X size={14} stroke="#555" />
+              </ATM.Input.Sufixe>
+            )}
+          </ATM.Input.Root>
 
-        <ATM.Button>Buscar</ATM.Button>
+          <ATM.Button type="submit">Buscar</ATM.Button>
+        </form>
       </main>
       <MOL.Footer />
     </div>

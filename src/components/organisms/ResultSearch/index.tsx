@@ -1,26 +1,67 @@
 import { ATM, MOL } from '@APP/components';
+import { Button } from '@APP/components/atoms';
+import { VALID } from '@APP/hooks';
+import { ROUTES } from '@APP/routes/routes';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
 import { ComponentProps } from 'react';
+import { useForm } from 'react-hook-form';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 type ResultSearchProps = ComponentProps<'div'>;
+type ISearch = {
+  valueSearch: string;
+};
 
 function ResultSearch({ ...props }: ResultSearchProps) {
-  const mockTerm = 'xxx';
-  const mockResultSearch = ['any data'];
+  const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const term = queryParams.get('q');
+
+  const validationSchema = VALID.useSearchSchema();
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    formState: { errors },
+  } = useForm<ISearch>({
+    resolver: yupResolver(validationSchema),
+    defaultValues: {
+      valueSearch: term ?? '',
+    },
+  });
+
+  const submit = (data: ISearch) => {
+    console.log(data);
+  };
+
+  const noResultMock = [];
+
   return (
     <div className="flex flex-col items-center" {...props}>
       <MOL.Header>
         <span className="flex h-min w-full items-center gap-3">
-          <ATM.LogoGoogle width={80} />
-          <ATM.Input.Root variant="slim">
-            <ATM.Input.Prefix>
-              <Search size={14} stroke="#555" />
-            </ATM.Input.Prefix>
-            <ATM.Input.Control placeholder="" />
-            <ATM.Input.Prefix>
-              <X size={14} stroke="#555" />
-            </ATM.Input.Prefix>
-          </ATM.Input.Root>
+          <Button variant="link" onClick={() => navigate(ROUTES.Home)}>
+            <ATM.LogoGoogle width={80} />
+          </Button>
+          <form onSubmit={handleSubmit(submit)} className="w-full">
+            <ATM.Input.Root variant="slim">
+              <ATM.Input.Prefix type="submit">
+                <Search size={14} stroke="#555" />
+              </ATM.Input.Prefix>
+              <ATM.Input.Control placeholder="" {...register('valueSearch')} />
+              {watch('valueSearch') && (
+                <ATM.Input.Sufixe
+                  type="button"
+                  onClick={() => setValue('valueSearch', '')}
+                >
+                  <X size={14} stroke="#555" />
+                </ATM.Input.Sufixe>
+              )}
+            </ATM.Input.Root>
+          </form>
         </span>
 
         <div className="flex items-center gap-3 text-zinc-800">
@@ -34,9 +75,15 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           />
         </div>
       </MOL.Header>
+
       <main className="mt-6 flex min-h-[calc(100vh-8rem)] w-full flex-col items-center gap-y-6 px-6 lg:grid lg:grid-cols-resultSearch lg:items-start lg:gap-x-6">
-        {mockResultSearch.length === 0 ? (
-          <MOL.NoResult term={mockTerm} />
+        {errors.valueSearch?.message ? (
+          <MOL.NoResult
+            term={[errors.valueSearch?.message ?? '', term ?? '']}
+            isFullMessage={false}
+          />
+        ) : noResultMock.length === 0 ? (
+          <MOL.NoResult term={['No results found for ', term ?? '']} />
         ) : (
           <ul className="w-full space-y-4">
             <MOL.ListItem
