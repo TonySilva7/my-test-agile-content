@@ -15,7 +15,7 @@ function AnimalCard({
   ...props
 }: AnimalCardProps) {
   return (
-    <div
+    <article
       className="fixed top-0 z-50 flex h-screen w-screen items-center justify-center bg-slate-700/50 lg:static lg:h-auto lg:w-auto lg:items-start lg:bg-transparent"
       {...props}
     >
@@ -27,7 +27,7 @@ function AnimalCard({
         <h2 className="py-1 font-semibold text-zinc-800">{title}</h2>
         <p className="text-sm text-zinc-800">{description}</p>
       </div>
-    </div>
+    </article>
   );
 }
 

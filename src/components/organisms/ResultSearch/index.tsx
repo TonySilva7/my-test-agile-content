@@ -79,7 +79,7 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           <Button variant="link" onClick={() => navigate(ROUTES.Home)}>
             <ATM.LogoGoogle width={80} />
           </Button>
-          <form onSubmit={handleSubmit(submit)} className="w-full">
+          <MOL.Form onSubmit={handleSubmit(submit)} variant="secondary">
             <ATM.Input.Root variant="slim">
               <ATM.Input.Prefix
                 type="submit"
@@ -98,7 +98,7 @@ function ResultSearch({ ...props }: ResultSearchProps) {
                 </ATM.Input.Sufixe>
               )}
             </ATM.Input.Root>
-          </form>
+          </MOL.Form>
         </span>
 
         <div className="hidden items-center gap-3 text-zinc-800 lg:flex">
@@ -109,35 +109,37 @@ function ResultSearch({ ...props }: ResultSearchProps) {
         </div>
       </MOL.Header>
 
-      <main className="mt-6 flex min-h-[calc(100vh-8rem)] w-full flex-col items-center gap-y-6 px-6 lg:grid lg:grid-cols-resultSearch lg:items-start lg:gap-x-6">
-        {status === 'pending' ? (
-          <div className="flex w-full flex-col gap-y-5">
-            {Array.from({ length: 5 }).map((_, index) => (
-              <ATM.SkeletonLoading key={index} />
-            ))}
-          </div>
-        ) : requestError ? (
-          <span>
-            <MOL.NoResult term={[`${requestError} `, `'${term}'` ?? '']} />
-            <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
-          </span>
-        ) : errors.valueSearch?.message ? (
-          <MOL.NoResult
-            term={[errors.valueSearch?.message ?? '', defaultTextNoResult]}
-          />
-        ) : (
-          <ul className="w-full space-y-4">
-            {animals.map((animal) => (
-              <MOL.ListItem
-                key={animal.id}
-                onClick={() => handleClickItem(animal.id)}
-                url={animal.url}
-                title={animal.title}
-                text={animal.description}
-              />
-            ))}
-          </ul>
-        )}
+      <MOL.MainContent variant="secondary">
+        <section className="w-full">
+          {status === 'pending' ? (
+            <div className="flex w-full flex-col gap-y-5">
+              {Array.from({ length: 5 }).map((_, index) => (
+                <ATM.SkeletonLoading key={index} />
+              ))}
+            </div>
+          ) : requestError ? (
+            <span>
+              <MOL.NoResult term={[`${requestError} `, `'${term}'` ?? '']} />
+              <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
+            </span>
+          ) : errors.valueSearch?.message ? (
+            <MOL.NoResult
+              term={[errors.valueSearch?.message ?? '', defaultTextNoResult]}
+            />
+          ) : (
+            <MOL.List>
+              {animals.map((animal) => (
+                <MOL.ListItem
+                  key={animal.id}
+                  onClick={() => handleClickItem(animal.id)}
+                  url={animal.url}
+                  title={animal.title}
+                  text={animal.description}
+                />
+              ))}
+            </MOL.List>
+          )}
+        </section>
 
         {dataCard && (
           <MOL.AnimalCard
@@ -148,7 +150,7 @@ function ResultSearch({ ...props }: ResultSearchProps) {
             onClick={() => setDataCard(null)}
           />
         )}
-      </main>
+      </MOL.MainContent>
 
       <MOL.Footer />
     </div>

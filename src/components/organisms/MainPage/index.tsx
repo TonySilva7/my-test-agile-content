@@ -55,13 +55,11 @@ function Page({ ...props }: MainPageProps) {
           <ATM.Avatar avatarUrl={avatar_url} />
         </div>
       </MOL.Header>
-      <main className="flex w-full flex-col items-center gap-y-6 px-3 lg:w-2/4">
+
+      <MOL.MainContent>
         <ATM.LogoGoogle width={250} />
 
-        <form
-          onSubmit={handleSubmit(submit)}
-          className="flex w-full flex-col items-center gap-2"
-        >
+        <MOL.Form onSubmit={handleSubmit(submit)}>
           <ATM.Input.Root>
             <ATM.Input.Prefix type="submit">
               <Search size={14} stroke="#555" />
@@ -89,8 +87,9 @@ function Page({ ...props }: MainPageProps) {
           >
             Buscar
           </ATM.Button>
-        </form>
-      </main>
+        </MOL.Form>
+      </MOL.MainContent>
+
       <MOL.Footer />
     </div>
   );

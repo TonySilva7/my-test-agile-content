@@ -12,7 +12,7 @@ const buttonVariant = tv({
     variant: {
       primary: 'bg-neutral-200/90 text-zinc-800 hover:bg-zinc-300',
       ghost: 'rounded-full px-2 shadow-none hover:bg-zinc-50',
-      link: 'flex flex-col justify-start p-0 shadow-none hover:bg-zinc-50',
+      link: 'flex flex-col justify-start p-0 shadow-none',
     },
   },
   defaultVariants: {

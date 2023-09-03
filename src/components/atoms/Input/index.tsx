@@ -30,20 +30,20 @@ function Sufixe({ ...rest }: SufixeProps) {
   return <button {...rest} />;
 }
 
-function TextArea(
+function Input(
   { ...rest }: ControlProps,
   ref: React.LegacyRef<HTMLInputElement>,
 ) {
   return (
     <input
       ref={ref}
-      className="flex-1 resize-none border-0 bg-transparent p-0 text-zinc-800 outline-none placeholder:text-zinc-600"
+      className="flex w-full border-0 bg-transparent p-0 text-zinc-800 outline-none placeholder:text-zinc-600"
       {...rest}
     />
   );
 }
 
-const Control = React.forwardRef(TextArea);
+const Control = React.forwardRef(Input);
 
 function Root({ variant, ...rest }: RootProps) {
   return <div className={inputVariant({ variant })} {...rest} />;
