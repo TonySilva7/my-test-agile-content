@@ -1,4 +1,4 @@
-import { MainPage } from './MainPage';
+import { MainPage, MainPageProps } from './MainPage';
 import { ResultSearch } from './ResultSearch';
 
-export { MainPage, ResultSearch };
+export { MainPage, type MainPageProps, ResultSearch };
