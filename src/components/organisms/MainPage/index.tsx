@@ -83,7 +83,11 @@ function Page({ ...props }: MainPageProps) {
             )}
           </ATM.Input.Root>
 
-          <ATM.Button type="submit" disabled={!getValues('valueSearch')}>
+          <ATM.Button
+            type="submit"
+            data-testid="button-home"
+            disabled={!getValues('valueSearch')}
+          >
             Buscar
           </ATM.Button>
         </form>

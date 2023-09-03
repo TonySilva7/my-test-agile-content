@@ -15,7 +15,7 @@ const animals = {
 
         if (filteredAnimals.length === 0) rejected('No results found for');
         resolve(filteredAnimals);
-      }, Math.random() * 3000);
+      }, Math.random() * 2300);
     });
   },
 };

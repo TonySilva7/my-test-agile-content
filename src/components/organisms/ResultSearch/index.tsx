@@ -80,10 +80,17 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           </Button>
           <form onSubmit={handleSubmit(submit)} className="w-full">
             <ATM.Input.Root variant="slim">
-              <ATM.Input.Prefix type="submit">
+              <ATM.Input.Prefix
+                type="submit"
+                data-testid="button-search-result"
+              >
                 <Search size={14} stroke="#555" />
               </ATM.Input.Prefix>
-              <ATM.Input.Control placeholder="" {...register('valueSearch')} />
+              <ATM.Input.Control
+                placeholder=""
+                data-testid="input-search-result"
+                {...register('valueSearch')}
+              />
               {watch('valueSearch') && (
                 <ATM.Input.Sufixe type="button" onClick={handleClearSearch}>
                   <X size={14} stroke="#555" />

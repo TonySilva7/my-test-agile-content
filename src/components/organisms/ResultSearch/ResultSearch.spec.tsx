@@ -2,7 +2,9 @@ import '@testing-library/jest-dom';
 
 import App from '@APP/App';
 import { setupStore } from '@APP/app/store';
+import { FEAT } from '@APP/features';
 import { renderWithProviders } from '@APP/utils/test-utils';
+import { fireEvent, screen } from '@testing-library/react';
 import { describe, expect } from 'vitest';
 
 describe('<ResultSearch />', () => {
@@ -10,19 +12,28 @@ describe('<ResultSearch />', () => {
     renderWithProviders(<App />);
   });
 
-  test('Sets up initial state state with actions', () => {
+  test('Should start init state of animals with length 0', () => {
     const store = setupStore();
-    const items = store.getState().animalReducer.fakeItems;
+    const { animals } = store.getState().animalReducer;
 
-    expect(items).toHaveLength(1);
+    expect(animals).toHaveLength(0);
   });
 
-  test('Sets up initial state state with actions', () => {
+  test('Should change item length to more then 0', async () => {
     const store = setupStore();
-    const items = store.getState().animalReducer.fakeItems;
+    expect(store.getState().animalReducer.animals).toHaveLength(0);
+    expect(store.getState().animalReducer.fakeItems).toHaveLength(1);
 
-    setTimeout(() => {
-      expect(items).toHaveLength(1);
-    }, 1000);
+    await store.dispatch(FEAT.ANIMAL.handleGetAnimals()).unwrap();
+    expect(store.getState().animalReducer.fakeItems).toHaveLength(100);
+
+    const inputHome: HTMLInputElement = screen.getByTestId('search-home');
+    fireEvent.change(inputHome, { target: { value: 'lion' } });
+
+    await store
+      .dispatch(FEAT.ANIMAL.handleGetAnimalsByName(inputHome.value))
+      .unwrap();
+
+    expect(store.getState().animalReducer.animals.length).toBeGreaterThan(0);
   });
 });

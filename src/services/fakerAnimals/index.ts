@@ -5,8 +5,9 @@ const fakerAnimals = {
   getAnimalsAsync: () => {
     return new Promise<TYPES.IAnimals[]>((resolve) => {
       setTimeout(() => {
-        resolve(REPO.fakerAnimals.getAnimals());
-      }, Math.random() * 3000);
+        const animals = REPO.fakerAnimals.getAnimals();
+        resolve(animals);
+      }, Math.random() * 2300);
     });
   },
 };
