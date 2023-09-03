@@ -19,6 +19,7 @@ type ISearch = {
 
 function ResultSearch({ ...props }: ResultSearchProps) {
   const dispatch = useAppDispatch();
+  const { avatar_url } = useAppSelector(FEAT.USERS.selectUsers);
   const { animals, status, requestError } = useAppSelector(
     FEAT.ANIMAL.selectAnimals,
   );
@@ -104,11 +105,7 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           <ATM.Button variant="ghost">
             <Grip className="font-medium text-zinc-600" />
           </ATM.Button>
-          <img
-            src="https://github.com/TonySilva7.png"
-            alt="imagem perfil do usuário"
-            className="h-8 w-8 rounded-full"
-          />
+          <ATM.Avatar avatarUrl={avatar_url} />
         </div>
       </MOL.Header>
 

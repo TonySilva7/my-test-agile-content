@@ -4,7 +4,6 @@ export default {
   theme: {
     extend: {
       gridTemplateColumns: {
-        // resultSearch: 'repeat(auto-fill, minmax(200px, 1fr))',
         resultSearch: 'minmax(60%, 70%) 1fr',
       },
     },

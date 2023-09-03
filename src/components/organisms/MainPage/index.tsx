@@ -1,4 +1,4 @@
-import { useAppDispatch } from '@APP/app/hooks';
+import { useAppDispatch, useAppSelector } from '@APP/app/hooks';
 import { ATM, MOL } from '@APP/components';
 import { FEAT } from '@APP/features';
 import { VALID } from '@APP/hooks';
@@ -15,6 +15,7 @@ type ISearch = {
 };
 
 function Page({ ...props }: MainPageProps) {
+  const { avatar_url } = useAppSelector(FEAT.USERS.selectUsers);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const validationSchema = VALID.useSearchSchema();
@@ -50,11 +51,8 @@ function Page({ ...props }: MainPageProps) {
           <ATM.Button variant="ghost">
             <Grip className="font-medium text-zinc-600" />
           </ATM.Button>
-          <img
-            src="https://github.com/TonySilva7.png"
-            alt="imagem perfil do usuário"
-            className="h-8 w-8 rounded-full"
-          />
+
+          <ATM.Avatar avatarUrl={avatar_url} />
         </div>
       </MOL.Header>
       <main className="flex w-full flex-col items-center gap-y-6 px-3 lg:w-2/4">

@@ -1,3 +1,5 @@
+import { IStatusRequest } from '../request';
+
 type IAnimals = {
   type: string;
   id: number;
@@ -7,11 +9,10 @@ type IAnimals = {
   image: string;
 };
 
-type IAnimalsState = {
+type IAnimalsState = IStatusRequest & {
   fakeItems: IAnimals[];
   animals: IAnimals[];
   requestError?: string;
-  status: 'idle' | 'pending' | 'success' | 'error';
 };
 
 export type { IAnimals, IAnimalsState };

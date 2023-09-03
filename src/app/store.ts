@@ -1,4 +1,5 @@
-import animalsSlice from '@APP/features/animals/index';
+import animalsSlice from '@APP/features/animals';
+import usersSlice from '@APP/features/users';
 import {
   Action,
   combineReducers,
@@ -9,6 +10,7 @@ import {
 // Create the root reducer independently to obtain the RootState type
 const rootReducer = combineReducers({
   animalReducer: animalsSlice,
+  userReducer: usersSlice,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
