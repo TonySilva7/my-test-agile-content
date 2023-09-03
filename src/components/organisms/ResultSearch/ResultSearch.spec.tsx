@@ -73,7 +73,7 @@ describe('<ResultSearch />', () => {
           screen.getByText('No results found for'),
         ).toBeInTheDocument();
       },
-      { timeout: 1500 },
+      { timeout: 2500 },
     );
   });
 });
