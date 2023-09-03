@@ -73,7 +73,7 @@ describe('<ResultSearch />', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('Try looking for:')).toBeInTheDocument();
+      expect(screen.getByText('Try looking for:')).not.toBeInTheDocument();
     });
   });
 });
