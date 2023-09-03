@@ -76,6 +76,7 @@ function Page({ ...props }: MainPageProps) {
             {watch('valueSearch') && (
               <ATM.Input.Sufixe
                 type="button"
+                data-testid="clear-input-home"
                 onClick={() => setValue('valueSearch', '')}
               >
                 <X size={16} stroke="#555" />

@@ -3,8 +3,11 @@ import '@testing-library/jest-dom';
 import App from '@APP/App';
 import { setupStore } from '@APP/app/store';
 import { FEAT } from '@APP/features';
+import { ResultPage } from '@APP/pages';
 import { renderWithProviders } from '@APP/utils/test-utils';
-import { fireEvent, screen } from '@testing-library/react';
+import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
+import { BrowserRouter } from 'react-router-dom';
 import { describe, expect } from 'vitest';
 
 describe('<ResultSearch />', () => {
@@ -35,5 +38,26 @@ describe('<ResultSearch />', () => {
       .unwrap();
 
     expect(store.getState().animalReducer.animals.length).toBeGreaterThan(0);
+  });
+});
+
+describe('<ResultSearch />', () => {
+  beforeEach(() => {
+    renderWithProviders(
+      <BrowserRouter>
+        <ResultPage />
+      </BrowserRouter>,
+    );
+  });
+
+  test('Should show message error when input is empty', async () => {
+    const buttonResult = screen.getByTestId('button-search-result');
+    act(() => {
+      fireEvent.click(buttonResult);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('Try looking for:')).toBeInTheDocument();
+    });
   });
 });

@@ -16,4 +16,21 @@ export default defineConfig({
       '@APP': '/src',
     },
   },
+  build: {
+    chunkSizeWarningLimit: 3000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react'],
+          reactDom: ['react-dom'],
+          reactRouterDom: ['react-router-dom'],
+
+          axios: ['axios'],
+          reduxToolkit: ['@reduxjs/toolkit'],
+          reactRedux: ['react-redux'],
+          lucideReact: ['lucide-react'],
+        },
+      },
+    },
+  },
 });
