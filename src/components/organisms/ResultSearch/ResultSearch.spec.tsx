@@ -6,7 +6,6 @@ import { FEAT } from '@APP/features';
 import { ResultPage } from '@APP/pages';
 import { renderWithProviders } from '@APP/utils/test-utils';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, expect } from 'vitest';
 
@@ -52,28 +51,29 @@ describe('<ResultSearch />', () => {
 
   test('Should show message error when input is empty', async () => {
     const buttonResult = screen.getByTestId('button-search-result');
-    act(() => {
-      fireEvent.click(buttonResult);
-    });
+    fireEvent.click(buttonResult);
 
     await waitFor(() => {
       expect(screen.getByText('Try looking for:')).toBeInTheDocument();
     });
   });
 
-  test('.......', async () => {
+  test('Should show message error when no result search term', async () => {
     const inputElement: HTMLInputElement = screen.getByTestId(
       'input-search-result',
     );
-    fireEvent.change(inputElement, { target: { value: 'lion' } });
+    fireEvent.change(inputElement, { target: { value: 'xxx' } });
 
     const buttonResult = screen.getByTestId('button-search-result');
-    act(() => {
-      fireEvent.click(buttonResult);
-    });
+    fireEvent.click(buttonResult);
 
-    await waitFor(() => {
-      expect(screen.getByText('Try looking for:')).not.toBeInTheDocument();
-    });
+    await waitFor(
+      () => {
+        return expect(
+          screen.getByText('No results found for'),
+        ).toBeInTheDocument();
+      },
+      { timeout: 1500 },
+    );
   });
 });
