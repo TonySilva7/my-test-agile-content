@@ -1,0 +1,17 @@
+version: '3.6'
+
+services:
+  app:
+    container_name: my-test-prd
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80:80'
+    networks:
+      - my-test-prd
+    restart: always
+
+networks:
+  my-test-prd:
+    driver: bridge
