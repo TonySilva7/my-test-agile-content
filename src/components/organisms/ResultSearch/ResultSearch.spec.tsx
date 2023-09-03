@@ -60,4 +60,20 @@ describe('<ResultSearch />', () => {
       expect(screen.getByText('Try looking for:')).toBeInTheDocument();
     });
   });
+
+  test('.......', async () => {
+    const inputElement: HTMLInputElement = screen.getByTestId(
+      'input-search-result',
+    );
+    fireEvent.change(inputElement, { target: { value: 'lion' } });
+
+    const buttonResult = screen.getByTestId('button-search-result');
+    act(() => {
+      fireEvent.click(buttonResult);
+    });
+
+    await waitFor(() => {
+      expect(screen.getByText('Try looking for:')).toBeInTheDocument();
+    });
+  });
 });
