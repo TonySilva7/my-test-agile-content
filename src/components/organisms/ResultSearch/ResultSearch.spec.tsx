@@ -16,4 +16,13 @@ describe('<ResultSearch />', () => {
 
     expect(items).toHaveLength(1);
   });
+
+  test('Sets up initial state state with actions', () => {
+    const store = setupStore();
+    const items = store.getState().animalReducer.fakeItems;
+
+    setTimeout(() => {
+      expect(items).toHaveLength(1);
+    }, 1000);
+  });
 });
