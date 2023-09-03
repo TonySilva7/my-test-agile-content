@@ -5,7 +5,7 @@ import { setupStore } from '@APP/app/store';
 import { FEAT } from '@APP/features';
 import { ResultPage } from '@APP/pages';
 import { renderWithProviders } from '@APP/utils/test-utils';
-import { fireEvent, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, screen, waitFor } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 import { describe, expect } from 'vitest';
 
@@ -26,15 +26,17 @@ describe('<ResultSearch />', () => {
     expect(store.getState().animalReducer.animals).toHaveLength(0);
     expect(store.getState().animalReducer.fakeItems).toHaveLength(1);
 
-    await store.dispatch(FEAT.ANIMAL.handleGetAnimals()).unwrap();
-    expect(store.getState().animalReducer.fakeItems).toHaveLength(100);
+    await act(async () => {
+      await store.dispatch(FEAT.ANIMAL.handleGetAnimals()).unwrap();
+      expect(store.getState().animalReducer.fakeItems).toHaveLength(100);
 
-    const inputHome: HTMLInputElement = screen.getByTestId('search-home');
-    fireEvent.change(inputHome, { target: { value: 'lion' } });
+      const inputHome: HTMLInputElement = screen.getByTestId('search-home');
+      fireEvent.change(inputHome, { target: { value: 'lion' } });
 
-    await store
-      .dispatch(FEAT.ANIMAL.handleGetAnimalsByName(inputHome.value))
-      .unwrap();
+      await store
+        .dispatch(FEAT.ANIMAL.handleGetAnimalsByName(inputHome.value))
+        .unwrap();
+    });
 
     expect(store.getState().animalReducer.animals.length).toBeGreaterThan(0);
   });

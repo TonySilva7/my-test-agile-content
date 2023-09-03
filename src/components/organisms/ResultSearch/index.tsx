@@ -4,6 +4,7 @@ import { Button } from '@APP/components/atoms';
 import { FEAT } from '@APP/features';
 import { VALID } from '@APP/hooks';
 import { ROUTES } from '@APP/routes/routes';
+import { TEXTS } from '@APP/utils/default-texts';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
 import { ComponentProps, useState } from 'react';
@@ -69,9 +70,6 @@ function ResultSearch({ ...props }: ResultSearchProps) {
     setDataCard(null);
   };
 
-  const defaultTextNoResult =
-    'insect, finish, horse, crocodilia, bear, cow, lion, rabbit, cat, snake, dog, bird.';
-
   return (
     <div className="flex flex-col items-center" {...props}>
       <MOL.Header>
@@ -120,11 +118,16 @@ function ResultSearch({ ...props }: ResultSearchProps) {
           ) : requestError ? (
             <span>
               <MOL.NoResult term={[`${requestError} `, `'${term}'` ?? '']} />
-              <MOL.NoResult term={['Try looking for: ', defaultTextNoResult]} />
+              <MOL.NoResult
+                term={['Try looking for: ', TEXTS.defaultTextNoResult]}
+              />
             </span>
           ) : errors.valueSearch?.message ? (
             <MOL.NoResult
-              term={[errors.valueSearch?.message ?? '', defaultTextNoResult]}
+              term={[
+                errors.valueSearch?.message ?? '',
+                TEXTS.defaultTextNoResult,
+              ]}
             />
           ) : (
             <MOL.List>
