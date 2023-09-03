@@ -4,7 +4,6 @@ import { Button } from '@APP/components/atoms';
 import { FEAT } from '@APP/features';
 import { VALID } from '@APP/hooks';
 import { ROUTES } from '@APP/routes/routes';
-import { faker } from '@faker-js/faker';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
 import { ComponentProps, useState } from 'react';
@@ -20,7 +19,7 @@ type ISearch = {
 
 function ResultSearch({ ...props }: ResultSearchProps) {
   const dispatch = useAppDispatch();
-  const { animals, status, requestError, fakeItems } = useAppSelector(
+  const { animals, status, requestError } = useAppSelector(
     FEAT.ANIMAL.selectAnimals,
   );
   const navigate = useNavigate();

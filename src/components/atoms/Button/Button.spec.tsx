@@ -1,10 +1,8 @@
 import '@testing-library/jest-dom';
 
 import App from '@APP/App';
-import { ORG } from '@APP/components';
 import { renderWithProviders } from '@APP/utils/test-utils';
 import { fireEvent, screen, waitFor } from '@testing-library/react';
-import React from 'react';
 import { describe, expect } from 'vitest';
 
 describe('<Button />', () => {
@@ -28,7 +26,7 @@ describe('<Button />', () => {
     expect(screen.getByText('Buscar')).not.toBeDisabled();
   });
 
-  test('should show button active', async () => {
+  test('should not show button in screen', async () => {
     const inputElement: HTMLInputElement = screen.getByTestId('search-home');
 
     fireEvent.change(inputElement, { target: { value: 'dog' } });

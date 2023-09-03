@@ -1,4 +1,5 @@
 import { TYPES } from '@APP/@types';
+import { RootState } from '@APP/app/store';
 import { REPO } from '@APP/repository';
 import { SERVICE } from '@APP/services';
 import {
@@ -8,8 +9,6 @@ import {
   createSlice,
   PayloadAction,
 } from '@reduxjs/toolkit';
-
-import { AppThunk, RootState } from '../../app/store';
 
 const initialState: TYPES.IAnimalsState = REPO.animalsModel;
 
