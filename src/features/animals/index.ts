@@ -24,7 +24,7 @@ export const handleGetAnimalsByName = createAsyncThunk(
     try {
       const currentData = getState() as RootState;
       const response = await SERVICE.animals.getAnimalsAsyncByName({
-        data: currentData.animals.fakeItems,
+        data: currentData.animalReducer.fakeItems,
         searchTerm,
       });
       return response;
@@ -84,7 +84,7 @@ export const animalSlice = createSlice({
 export const { handleResetAnimals } = animalSlice.actions;
 
 export const selectAnimals = (state: RootState): TYPES.IAnimalsState =>
-  state.animals;
+  state.animalReducer;
 
 // export const incrementIfOdd =
 //   (amount: number): AppThunk =>

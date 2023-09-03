@@ -18,15 +18,10 @@ function Page({ ...props }: MainPageProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const validationSchema = VALID.useSearchSchema();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    setValue,
-    formState: { errors },
-  } = useForm<ISearch>({
-    resolver: yupResolver(validationSchema),
-  });
+  const { register, handleSubmit, watch, setValue, getValues } =
+    useForm<ISearch>({
+      resolver: yupResolver(validationSchema),
+    });
 
   const submit = (data: ISearch) => {
     dispatch(FEAT.ANIMAL.handleGetAnimalsByName(data.valueSearch));
@@ -73,7 +68,11 @@ function Page({ ...props }: MainPageProps) {
             <ATM.Input.Prefix type="submit">
               <Search size={14} stroke="#555" />
             </ATM.Input.Prefix>
-            <ATM.Input.Control placeholder="" {...register('valueSearch')} />
+            <ATM.Input.Control
+              data-testid="search-home"
+              placeholder=""
+              {...register('valueSearch')}
+            />
             {watch('valueSearch') && (
               <ATM.Input.Sufixe
                 type="button"
@@ -84,10 +83,7 @@ function Page({ ...props }: MainPageProps) {
             )}
           </ATM.Input.Root>
 
-          <ATM.Button
-            type="submit"
-            disabled={watch('valueSearch')?.length === 0}
-          >
+          <ATM.Button type="submit" disabled={!getValues('valueSearch')}>
             Buscar
           </ATM.Button>
         </form>

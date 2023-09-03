@@ -1,12 +1,14 @@
-import animalsReducer from '@APP/features/animals/index';
+import animalsSlice from '@APP/features/animals/index';
 import {
+  Action,
   combineReducers,
   configureStore,
   PreloadedState,
+  ThunkAction,
 } from '@reduxjs/toolkit';
 // Create the root reducer independently to obtain the RootState type
 const rootReducer = combineReducers({
-  animals: animalsReducer,
+  animalReducer: animalsSlice,
 });
 
 export function setupStore(preloadedState?: PreloadedState<RootState>) {
@@ -18,3 +20,9 @@ export function setupStore(preloadedState?: PreloadedState<RootState>) {
 export type RootState = ReturnType<typeof rootReducer>;
 export type AppStore = ReturnType<typeof setupStore>;
 export type AppDispatch = AppStore['dispatch'];
+export type AppThunk<ReturnType = void> = ThunkAction<
+  ReturnType,
+  RootState,
+  unknown,
+  Action<string>
+>;
