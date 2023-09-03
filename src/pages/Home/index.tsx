@@ -1,11 +1,11 @@
 import { ORG } from '@APP/components';
-import React, { ComponentProps } from 'react';
+import { ComponentProps } from 'react';
 
-type IHome = React.MemoExoticComponent<
-  ({ ...props }: ORG.MainPageProps) => JSX.Element
->;
+// type IHome = React.MemoExoticComponent<
+//   ({ ...props }: ORG.MainPageProps) => JSX.Element
+// >;
 
-type HomeProps = ComponentProps<IHome>;
+type HomeProps = ComponentProps<'div'>;
 
 function Home({ ...props }: HomeProps) {
   return <ORG.MainPage {...props} />;

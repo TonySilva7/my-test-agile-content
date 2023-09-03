@@ -15,7 +15,7 @@ export const AppRoutes = () => {
       <Route path="/secret" element={<PrivateRoute />}>
         <Route path="" element={<h1>Private</h1>} />
       </Route>
-      <Route path="*" element={<h1>404</h1>} />
+      <Route path="*" element={<PAGE.NotFound />} />
     </Routes>
   );
 };

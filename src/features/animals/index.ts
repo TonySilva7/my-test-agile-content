@@ -70,6 +70,7 @@ export const animalSlice = createSlice({
         (state, action: PayloadAction<TYPES.IAnimals[]>) => {
           state.status = 'success';
           state.animals = action.payload;
+          state.requestError = undefined;
         },
       )
       .addCase(handleGetAnimalsByName.rejected, (state, action: AnyAction) => {

@@ -9,6 +9,7 @@ function App() {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(FEAT.ANIMAL.handleGetAnimals());
     dispatch(FEAT.USERS.handleGetUserByName('TonySilva7'));
   }, [dispatch]);
 

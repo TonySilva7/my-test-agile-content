@@ -5,7 +5,7 @@ import { VALID } from '@APP/hooks';
 import { ROUTES } from '@APP/routes/routes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
-import React, { ComponentProps, useCallback, useEffect } from 'react';
+import { ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,10 +14,10 @@ type ISearch = {
   valueSearch: string;
 };
 
-function Page({ ...props }: MainPageProps) {
-  const { avatar_url } = useAppSelector(FEAT.USERS.selectUsers);
+function MainPage({ ...props }: MainPageProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { avatar_url } = useAppSelector(FEAT.USERS.selectUsers);
   const validationSchema = VALID.useSearchSchema();
   const { register, handleSubmit, watch, setValue, getValues } =
     useForm<ISearch>({
@@ -28,14 +28,6 @@ function Page({ ...props }: MainPageProps) {
     dispatch(FEAT.ANIMAL.handleGetAnimalsByName(data.valueSearch));
     navigate(`${ROUTES.ResultPage}/search?q=${data.valueSearch}`);
   };
-
-  const getAnimals = useCallback(() => {
-    dispatch(FEAT.ANIMAL.handleGetAnimals());
-  }, [dispatch]);
-
-  useEffect(() => {
-    getAnimals();
-  }, [getAnimals]);
 
   return (
     <div
@@ -95,6 +87,6 @@ function Page({ ...props }: MainPageProps) {
   );
 }
 
-const MainPage = React.memo(Page);
+// const MainPage = React.memo(Page);
 
 export { MainPage, type MainPageProps };

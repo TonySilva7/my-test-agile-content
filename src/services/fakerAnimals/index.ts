@@ -7,7 +7,7 @@ const fakerAnimals = {
       setTimeout(() => {
         const animals = REPO.fakerAnimals.getAnimals();
         resolve(animals);
-      }, Math.random() * 2300);
+      }, Math.random() * 120);
     });
   },
 };
