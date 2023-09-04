@@ -12,11 +12,21 @@ import {
 
 const initialState: TYPES.IAnimalsState = REPO.animalsModel;
 
+/**
+ * Thunk function to get list of 100 animals from layer service
+ * @returns list of 100 animals or error
+ */
 export const handleGetAnimals = createAsyncThunk('animals/getAll', async () => {
   const response = await SERVICE.fakerAnimals.getAnimalsAsync();
   return response;
 });
 
+/**
+ * Thunk function to get animals by name from layer service
+ * @returns {Promise<TYPES.IAnimals[]>} Promise with filtered animals
+ * @param {string} searchTerm - Search term to filter animals
+ * @returns list animals or error
+ */
 export const handleGetAnimalsByName = createAsyncThunk(
   'animals/getByName',
   async (searchTerm: string, { rejectWithValue, getState }) => {
@@ -85,14 +95,5 @@ export const { handleResetAnimals } = animalSlice.actions;
 
 export const selectAnimals = (state: RootState): TYPES.IAnimalsState =>
   state.animalReducer;
-
-// export const incrementIfOdd =
-//   (amount: number): AppThunk =>
-//   (dispatch, getState) => {
-//     const currentValue = selectCount(getState());
-//     if (currentValue % 2 === 1) {
-//       dispatch(incrementByAmount(amount));
-//     }
-//   };
 
 export default animalSlice.reducer;

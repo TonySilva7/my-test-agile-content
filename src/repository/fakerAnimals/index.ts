@@ -2,6 +2,10 @@ import { TYPES } from '@APP/@types';
 import { faker } from '@faker-js/faker';
 
 const fakerAnimals = {
+  /**
+   * Function to generate list of 100 animals from faker.js
+   * @returns {Promise<TYPES.IAnimals[]>} Promise with animals
+   */
   getAnimals: (): TYPES.IAnimals[] => {
     const getImage = () => faker.image.urlLoremFlickr({ category: 'animals' });
     const getType = () => faker.animal.type();

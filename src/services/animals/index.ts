@@ -6,7 +6,17 @@ type IPayload = {
 };
 
 const animals = {
-  getAnimalsAsyncByName: ({ searchTerm, data }: IPayload) => {
+  /**
+   * Function to get animals by name from repository layer, simulating an async request
+   * @returns {Promise<TYPES.IAnimals[]>} Promise with animals
+   * @param {string} searchTerm - Search term to filter animals
+   * @returns {Promise<TYPES.IAnimals[]>} Promise with animals
+   * @throws {string} No results found for
+   */
+  getAnimalsAsyncByName: ({
+    searchTerm,
+    data,
+  }: IPayload): Promise<TYPES.IAnimals[]> => {
     return new Promise<TYPES.IAnimals[]>((resolve, rejected) => {
       setTimeout(() => {
         const filteredAnimals = data.filter((animal) =>
