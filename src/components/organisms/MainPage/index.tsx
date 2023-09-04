@@ -5,7 +5,7 @@ import { VALID } from '@APP/hooks';
 import { ROUTES } from '@APP/routes/routes';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Grip, Search, X } from 'lucide-react';
-import { ComponentProps } from 'react';
+import React, { ComponentProps } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,7 +14,7 @@ type ISearch = {
   valueSearch: string;
 };
 
-function MainPage({ ...props }: MainPageProps) {
+function Page({ ...props }: MainPageProps) {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { avatar_url } = useAppSelector(FEAT.USERS.selectUsers);
@@ -87,6 +87,6 @@ function MainPage({ ...props }: MainPageProps) {
   );
 }
 
-// const MainPage = React.memo(Page);
+const MainPage = React.memo(Page);
 
 export { MainPage, type MainPageProps };
